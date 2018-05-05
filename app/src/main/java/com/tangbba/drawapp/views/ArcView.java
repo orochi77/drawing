@@ -36,12 +36,9 @@ public class ArcView extends View {
     @Px
     private int mStrokeWidth;
     private boolean mUseAnimation;
-    private int[] mColors;
-    private float[] mPositions;
 
     private Paint mArcPaint;
     private RectF mArcOvalRect;
-    private LinearGradient mGradient;
 
     private ValueAnimator mSweepAngleAnimator;
 
@@ -77,29 +74,6 @@ public class ArcView extends View {
             mUseAnimation = typedArray.getBoolean(R.styleable.ArcView_useAnimation, false);
             mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.ArcView_strokeWidth, DEFAULT_STROKE_WIDTH);
 
-            int colorsId = typedArray.getResourceId(R.styleable.ArcView_gradientColors, 0);
-            if (colorsId != 0) {
-                TypedArray colors = getResources().obtainTypedArray(colorsId);
-                mColors = new int[colors.length()];
-                for (int i = 0; i < colors.length(); i++) {
-                    mColors[i] = colors.getColor(i, 0);
-                }
-                colors.recycle();
-            } else {
-                mColors = DEFAULT_COLORS;
-            }
-
-            int positionsId = typedArray.getResourceId(R.styleable.ArcView_gradientColorPositions, 0);
-            if (positionsId != 0) {
-                TypedArray positions = getResources().obtainTypedArray(positionsId);
-                mPositions = new float[positions.length()];
-                for (int i = 0; i < positions.length(); i++) {
-                    mPositions[i] = positions.getFloat(i, 0.0f);
-                }
-                positions.recycle();
-            } else {
-                mPositions = DEFAULT_POSITIONS;
-            }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         } finally {
@@ -117,8 +91,6 @@ public class ArcView extends View {
         mArcOvalRect.top = halfStrokeSize;
         mArcOvalRect.right = circleSize;
         mArcOvalRect.bottom = circleSize;
-
-        mGradient = new LinearGradient(0, 0, getWidth(), 0, mColors, mPositions, Shader.TileMode.CLAMP);
 
         mSweepAngleAnimator = ValueAnimator.ofInt(0, mSweepAngle);
         mSweepAngleAnimator.setDuration(1000);
@@ -156,7 +128,6 @@ public class ArcView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        mArcPaint.setShader(mGradient);
         canvas.save();
         canvas.drawArc(mArcOvalRect, mStartAngle, mSweepAngle, false, mArcPaint);
         canvas.restore();
@@ -171,11 +142,4 @@ public class ArcView extends View {
         mStrokeWidth = strokeWidth;
     }
 
-    public void setColors(int[] colors) {
-        mColors = colors;
-    }
-
-    public void setPositions(float[] positions) {
-        mPositions = positions;
-    }
 }

@@ -10,26 +10,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <!--<com.tangbba.drawapp.views.ArcView-->
-            <!--android:layout_width="150dp"-->
-            <!--android:layout_height="150dp"-->
-            <!--app:strokeWidth="10dp"-->
-            <!--app:startAngle="0"-->
-            <!--app:sweepAngle="90"-->
-            <!--app:useAnimation="true"-->
-            <!--app:gradientColors="@array/gradient"-->
-            <!--app:gradientColorPositions="@array/gradient_position"/>-->
+        android:orientation="vertical">
 
         <com.tangbba.drawapp.views.ArcView
             android:layout_width="150dp"
             android:layout_height="150dp"
+            app:startAngle="0"
+            app:strokeWidth="10dp"
+            app:sweepAngle="90"
+            app:useAnimation="true" />
+
+        <Button
+            android:id="@+id/arc_view_animation_start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Animation" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.tangbba.drawapp.views.GradientArcView
+            android:id="@+id/gradient_arc_view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:gradientColorPositions="@array/gradient_position"
+            app:gradientColors="@array/gradient"
             app:strokeWidth="10dp"
             app:useAnimation="true"
-            app:gradientColors="@array/gradient"
-            app:gradientColorPositions="@array/gradient_position"/>
+            app:autoAnimation="true"/>
 
+        <Button
+            android:id="@+id/gradient_arc_view_animation_start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Animation" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray" />
     </LinearLayout>
 
 </ScrollView>
