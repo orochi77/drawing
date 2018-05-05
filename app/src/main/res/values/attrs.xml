@@ -3,6 +3,7 @@
 
     <attr name="startAngle" format="integer"/>
     <attr name="sweepAngle" format="integer"/>
+    <attr name="destinationSweepAngle" format="integer"/>
     <attr name="useAnimation" format="boolean"/>
     <attr name="autoAnimation" format="boolean"/>
     <attr name="strokeWidth" format="dimension"/>
@@ -10,6 +11,7 @@
     <declare-styleable name="GradientArcView">
         <attr name="startAngle"/>
         <attr name="sweepAngle"/>
+        <attr name="destinationSweepAngle"/>
         <attr name="useAnimation"/>
         <attr name="autoAnimation"/>
         <attr name="strokeWidth"/>

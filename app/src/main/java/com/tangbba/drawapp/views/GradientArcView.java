@@ -81,7 +81,8 @@ public class GradientArcView extends View {
 
         try {
             mStartAngle = typedArray.getInt(R.styleable.GradientArcView_startAngle, DEFAULT_START_ANGLE);
-            mDestinationSweepAngle = typedArray.getInt(R.styleable.GradientArcView_sweepAngle, DEFAULT_SWEEP_ANGLE);
+            mSweepAngle = typedArray.getInt(R.styleable.GradientArcView_sweepAngle, DEFAULT_SWEEP_ANGLE);
+            mDestinationSweepAngle = typedArray.getInt(R.styleable.GradientArcView_destinationSweepAngle, DEFAULT_SWEEP_ANGLE);
             mUseAnimation = typedArray.getBoolean(R.styleable.GradientArcView_useAnimation, false);
             mAutoAnimation = typedArray.getBoolean(R.styleable.GradientArcView_autoAnimation, false);
             mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.GradientArcView_strokeWidth, DEFAULT_STROKE_WIDTH);
@@ -162,6 +163,11 @@ public class GradientArcView extends View {
 
     public void setSweepAngle(int sweepAngle) {
         mSweepAngle = sweepAngle;
+        invalidate();
+    }
+
+    public void setDestinationSweepAngle(int destinationSweepAngle) {
+        mDestinationSweepAngle = destinationSweepAngle;
         invalidate();
     }
 

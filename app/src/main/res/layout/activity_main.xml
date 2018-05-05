@@ -40,8 +40,11 @@
             app:gradientColorPositions="@array/gradient_position"
             app:gradientColors="@array/gradient"
             app:strokeWidth="10dp"
-            app:useAnimation="true"
-            app:autoAnimation="true"/>
+            app:useAnimation="false"
+            app:autoAnimation="false"
+            app:startAngle="135"
+            app:sweepAngle="270"
+            app:destinationSweepAngle="0"/>
 
         <Button
             android:id="@+id/gradient_arc_view_animation_start_button"
