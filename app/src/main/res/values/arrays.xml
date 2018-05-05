@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="gradient_position">
+        <item>0.0f</item>
+        <item>0.1f</item>
+        <item>0.5f</item>
+        <item>0.9f</item>
+        <item>1.0f</item>
+    </array>
+
+    <array name="gradient">
+        <item>#f29b76</item>
+        <item>#acd598</item>
+        <item>#7ecef4</item>
+        <item>#fff799</item>
+        <item>#f19ec2</item>
+    </array>
+</resources>
