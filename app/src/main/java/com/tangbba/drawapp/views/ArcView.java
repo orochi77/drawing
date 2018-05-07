@@ -10,8 +10,10 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.Px;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -26,16 +28,18 @@ public class ArcView extends View {
 
     private static final int DEFAULT_START_ANGLE = 135;
     private static final int DEFAULT_SWEEP_ANGLE = 270;
+    private static final int DEFAULT_COLOR = 0xffff0000;
     @Px
     private static final int DEFAULT_STROKE_WIDTH = 40;
-    private static final int[] DEFAULT_COLORS = {Color.BLACK, Color.BLACK};
-    private static final float[] DEFAULT_POSITIONS = {0.0f, 1.0f};
 
     private int mStartAngle;
     private int mSweepAngle;
+    private int mDestinationSweepAngle;
     @Px
     private int mStrokeWidth;
+    private int mColor;
     private boolean mUseAnimation;
+    private boolean mAutoAnimation;
 
     private Paint mArcPaint;
     private RectF mArcOvalRect;
@@ -71,9 +75,11 @@ public class ArcView extends View {
         try {
             mStartAngle = typedArray.getInt(R.styleable.ArcView_startAngle, DEFAULT_START_ANGLE);
             mSweepAngle = typedArray.getInt(R.styleable.ArcView_sweepAngle, DEFAULT_SWEEP_ANGLE);
+            mDestinationSweepAngle = typedArray.getInt(R.styleable.ArcView_destinationSweepAngle, DEFAULT_SWEEP_ANGLE);
             mUseAnimation = typedArray.getBoolean(R.styleable.ArcView_useAnimation, false);
+            mAutoAnimation = typedArray.getBoolean(R.styleable.ArcView_autoAnimation, false);
             mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.ArcView_strokeWidth, DEFAULT_STROKE_WIDTH);
-
+            mColor = typedArray.getColor(R.styleable.ArcView_arcColor, 0);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         } finally {
@@ -86,25 +92,15 @@ public class ArcView extends View {
         int circleSize = Math.min(getWidth(), getHeight()) - halfStrokeSize;
 
         mArcPaint.setStrokeWidth(mStrokeWidth);
+        mArcPaint.setColor(mColor);
 
         mArcOvalRect.left = halfStrokeSize;
         mArcOvalRect.top = halfStrokeSize;
         mArcOvalRect.right = circleSize;
         mArcOvalRect.bottom = circleSize;
 
-        mSweepAngleAnimator = ValueAnimator.ofInt(0, mSweepAngle);
-        mSweepAngleAnimator.setDuration(1000);
-        mSweepAngleAnimator.setInterpolator(new DecelerateInterpolator());
-        mSweepAngleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int animatedValue = (int) animation.getAnimatedValue();
-                setSweepAngle(animatedValue);
-            }
-        });
-
-        if (mUseAnimation) {
-            mSweepAngleAnimator.start();
+        if (mUseAnimation && mAutoAnimation) {
+            startAnimation();
         }
     }
 
@@ -138,8 +134,26 @@ public class ArcView extends View {
         invalidate();
     }
 
-    public void setStrokeWidth(int strokeWidth) {
-        mStrokeWidth = strokeWidth;
+    public void setDestinationSweepAngle(int destinationSweepAngle) {
+        mDestinationSweepAngle = destinationSweepAngle;
+        invalidate();
+    }
+
+    public void startAnimation() {
+        if (mSweepAngleAnimator != null) {
+            mSweepAngleAnimator.removeAllUpdateListeners();
+        }
+        mSweepAngleAnimator = ValueAnimator.ofInt(0, mDestinationSweepAngle);
+        mSweepAngleAnimator.setDuration(500);
+        mSweepAngleAnimator.setInterpolator(new DecelerateInterpolator());
+        mSweepAngleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int animatedValue = (int) animation.getAnimatedValue();
+                setSweepAngle(animatedValue);
+            }
+        });
+        mSweepAngleAnimator.start();
     }
 
 }

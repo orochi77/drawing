@@ -15,10 +15,11 @@
         <com.tangbba.drawapp.views.ArcView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            app:startAngle="0"
+            app:startAngle="135"
             app:strokeWidth="10dp"
-            app:sweepAngle="90"
-            app:useAnimation="true" />
+            app:sweepAngle="270"
+            app:arcColor="@color/colorAccent"
+            app:useAnimation="false" />
 
         <Button
             android:id="@+id/arc_view_animation_start_button"
@@ -33,18 +34,31 @@
             android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray" />
 
-        <com.tangbba.drawapp.views.GradientArcView
-            android:id="@+id/gradient_arc_view"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:gradientColorPositions="@array/gradient_position"
-            app:gradientColors="@array/gradient"
-            app:strokeWidth="10dp"
-            app:useAnimation="false"
-            app:autoAnimation="false"
-            app:startAngle="135"
-            app:sweepAngle="270"
-            app:destinationSweepAngle="0"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <com.tangbba.drawapp.views.ArcView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:startAngle="135"
+                app:strokeWidth="10dp"
+                app:sweepAngle="270"
+                app:arcColor="@color/gray"
+                app:useAnimation="false" />
+
+            <com.tangbba.drawapp.views.GradientArcView
+                android:id="@+id/gradient_arc_view"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:gradientColorPositions="@array/gradient_position"
+                app:gradientColors="@array/gradient"
+                app:strokeWidth="10dp"
+                app:useAnimation="true"
+                app:autoAnimation="false"
+                app:startAngle="135"
+                app:sweepAngle="0"
+                app:destinationSweepAngle="180"/>
+        </RelativeLayout>
 
         <Button
             android:id="@+id/gradient_arc_view_animation_start_button"
